@@ -41,7 +41,7 @@ void init_locale(void) {
 	constexpr char locale_name[] = "";
 	setlocale(LC_ALL, locale_name);
 	std::locale::global(std::locale(locale_name));
-	std::wcin.imbue(std::locale())
+        std::wcin.imbue(std::locale());
 	std::wcout.imbue(std::locale());
 #endif
 }
