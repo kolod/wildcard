@@ -2,16 +2,19 @@ language: cpp
 
 compiler:
   - gcc
+  - mingw
 
 os:
   - linux
+  - windows
   
 notifications:
-  email: false
+  email: 
+    - alexandr.kolodkin@gmail.com
   
   pushover:
-    on_success: always
-    on_failure: always
+    on_success: always # default: change
+    on_failure: always # default: always
     api_key:
       secure: msDgZP/j/eeAElEaLR6QQ+eLBNvSJ8wQjovc15mgX2L4QQCrBbp411Zu6nT4g1SgAhzpxcAf7qAU/w+YHp1QzeFYlMfp5jQV/E4q8BpREuXU3r2rk8P+DcGxkj+4L+/4GqeKOwdpk3Yj79VXLBPZAhgSENM3kNoU//SvTmiZf8NyeZZsi1UkQ3/gj9kP9qwAbRMI9E9cznTc9ajnXdjuBoDf68g1U+FrjScNuo/g+1aUodOMWPnrQb41qfmRjkO/Mf2xDMF2e3iIpgfUPku4UeNx1ZrfwE8MNJ4Y64aXoKmkMKfyl7408dYrEfvUMJH6hrPYsIxtSmPraGerXqJ/LhIok5cTauQdjlGxIMO2estYx02RtAZiBKGJkTG2888rw4dL1Ce4S7Ae9mhp0NaNDc2RyAXtGbDDPe5UvB9nNKoSxLAMSuAfHdAgkCg6JbcK0pT1Umh+yUpTRTFxjqwmhm42RZ3CT4SuZUe5JMUj+14Gf/SRc/FK4HN9VYlaVS+uCkmKEwmoGGBLzPMICqQftKV+B7Frj19O1XIHhVJoph+rcyG0RrR1djn4H4pNvGbmfjODW9naTdG/8ZIuv5mNyS82fmk1G/CR9ySO5PgFcCHJIL+fpQhdD+5wGvEJkBachJniudiGyr9lrWIq/mrhZy7d03BSHJAHkherMSZoLKY=
     users:
