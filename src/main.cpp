@@ -30,18 +30,18 @@
 #include "../src/setlocale.h"
 
 typedef struct {
-	const std::array<bool, 5> answer;
+	const std::array<bool, 7> answer;
 	const std::wstring text;
 } sample_t;
 
-const sample_t s1 = { {true, false, true, true, false}, L"wildcard.cpp"};
-const sample_t s2 = { {false, true, false, true, false}, L"wildcard.h"};
-const sample_t s3 = { {false, false, false, true, false}, L"wildcard.hpp"};
-const sample_t s4 = { {false, false, true, true, false}, L"ワイルドカード.cpp"};
-const sample_t s5 = { {false, true, false, true, false}, L"ワイルドカード.h"};
-const sample_t s6 = { {false, false, true, true, false}, L"шаблон.cpp"};
-const sample_t s7 = { {false, true, false, true, false}, L"шаблон.h"};
-const sample_t s8 = { {false, false, false, true, true}, L""};
+const sample_t s1 = { {true, false, true, true, false, false, true}, L"wildcard.cpp"};
+const sample_t s2 = { {false, true, false, true, false, false, true}, L"wildcard.h"};
+const sample_t s3 = { {true, false, false, true, false, false, true}, L"wildcard.hpp"};
+const sample_t s4 = { {false, false, true, true, false, false, false}, L"ワイルドカード.cpp"};
+const sample_t s5 = { {false, true, false, true, false, true, false}, L"ワイルドカード.h"};
+const sample_t s6 = { {false, false, true, true, false, false, false}, L"шаблон.cpp"};
+const sample_t s7 = { {false, true, false, true, false, false, false}, L"шаблон.h"};
+const sample_t s8 = { {false, false, false, true, true, false, false}, L""};
 
 const std::array<const sample_t, 8> samples {s1, s2, s3, s4, s5, s6, s7, s8};
 
@@ -49,7 +49,7 @@ std::wstring fromBool(bool value) {
 	return value ? L"'true'" : L"'false'";
 }
 
-bool test(std::wstring pattern, int answer) {
+bool test(int answer, std::wstring pattern) {
 	wildcard::Wildcard w(pattern);
 
 	std::wcout << L"Test pattern: '" << pattern << L"'" << std::endl;
@@ -75,10 +75,12 @@ int main() {
 	w.match(L"");
 
 	return (
-		test(L"wildcard.cpp", 0) &&
-		test(L"*.h", 1) &&
-		test(L"*.cpp", 2) &&
-		test(L"*", 3) &&
-		test(L"", 4)
+		test(0, L"wi?dcard.?pp") &&
+		test(1, L"*.h") &&
+		test(2, L"*.cpp") &&
+		test(3, L"*") &&
+		test(4, L"") &&
+		test(5, L"ワ?ルドカ*.h") &&
+		test(6, L"w*card.*")
 	) ? 0 : 1;
 }

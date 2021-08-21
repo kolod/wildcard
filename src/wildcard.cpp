@@ -47,8 +47,8 @@ Wildcard::Wildcard(const std::wstring& pattern)
 		mStates.push_back(state);
 	}
 
-#ifdef DEBUG
-//	print();
+#ifdef WILDCARD_DEBUG
+	print();
 #endif
 }
 
@@ -91,7 +91,7 @@ bool Wildcard::match(const std::wstring &word) {
 	return addSymbol(0) == result::finished;
 }
 
-#ifdef DEBUG
+#ifdef WILDCARD_DEBUG
 void Wildcard::print() {
 	for (auto state : mStates) {
         std::wcout << L" -" << state.transition[0].symbol << L"-> " << state.transition[0].state << std::endl;

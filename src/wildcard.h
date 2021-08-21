@@ -58,7 +58,7 @@ private:
 	result addSymbol(wchar_t symbol);
 	bool checkAndAdd(std::vector<size_t> &states, const transition_t &transition, wchar_t symbol);
 
-#ifdef DEBUG
+#ifdef WILDCARD_DEBUG
 	void print();
 #endif
 };
