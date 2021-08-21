@@ -7,9 +7,8 @@ os:
   - windows
 notifications:
   email: 
-    - alexandr.kolodkin@gmail.com   
     on_success: always
-    on_failure: always
+    on_failure: always   
   pushover:
     users:
     - secure: flzjtzgsDFUrri1v6s0zXQq0HHITVUdeAvRzDMhMx4mtesNFxpbZZxqPeLlf0GpX/3WPtuZwNnt1oWMEPdp9sSctzEayguKncuBBIynggtV6RfVg6X1xQW60zS31JLYOrwm+IM/gQXgSegg2UJ9FUExmq3GgbrZJSrNW87Orac7MVwOh4R/2iY+sjsAaKvWEB98Z7iv/eHg7g3WvzTTbD9TPHK2p9YX4FH8VrUNCNwHLk0/niZr2KuoEWhCCiXNCkk85Xo4vq+rpzFX5m73RshBhoNSjLCkLgJSWBp6vm8PfrUUDRIL0jRoC0F3M1fniNrIbyso2eAPeWaQRt730Uz1MDCED97ZlFOe3ndVi7MAV8e+1UxMOxx/7fRlDj069HBxAraoNOhrGzieVyfKH5V/q6LgZZjQd4bVLOQ0jTKm/kFPiUeZdKCrLcj0imsx+1XN1IBa8Kfdjc2THyJRhg5vQ+Cd8PCujrRCF2QJeoUwd6PO1SdFSTY1nOxBiCrTL9ciZUgTPrLfD0yR2IczFFO84dTIKmAh/vxHrbHS2xKTW6vdWChjR9LweB/jV3LOfrESL86Ql+bVjZNFRTos/BMerw2BFbFv6cpPRVF+J9kHdPO2IgOgQOFRJn1x1LFI+Wo7gZMGBaucbvINK+p1ZZS9U2rDaNmftRoDCJelabmA=
