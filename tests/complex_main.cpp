@@ -37,25 +37,25 @@ typedef struct
 	const std::wstring text;
 } sample_t;
 
-const sample_t s1 = {{true, false, true, true, false, false, true, false}, L"wildcard.cpp"};
-const sample_t s2 = {{false, true, false, true, false, false, true, false}, L"wildcard.h"};
-const sample_t s3 = {{true, false, false, true, false, false, true, false}, L"wildcard.hpp"};
-const sample_t s4 = {{false, false, true, true, false, false, false, false}, L"ワイルドカード.cpp"};
-const sample_t s5 = {{false, true, false, true, false, true, false, false}, L"ワイルドカード.h"};
-const sample_t s6 = {{false, false, true, true, false, false, false, false}, L"шаблон.cpp"};
-const sample_t s7 = {{false, true, false, true, false, false, false, false}, L"шаблон.h"};
-const sample_t s8 = {{false, false, false, true, true, false, false, true}, L""};
+const sample_t s1 = {{false, true, false, true, true, false, false, true}, L"wildcard.cpp"};
+const sample_t s2 = {{false, false, true, false, true, false, false, true}, L"wildcard.h"};
+const sample_t s3 = {{false, true, false, false, true, false, false, true}, L"wildcard.hpp"};
+const sample_t s4 = {{false, false, false, true, true, false, false, false}, L"ワイルドカード.cpp"};
+const sample_t s5 = {{false, false, true, false, true, false, true, false}, L"ワイルドカード.h"};
+const sample_t s6 = {{false, false, false, true, true, false, false, false}, L"шаблон.cpp"};
+const sample_t s7 = {{false, false, true, false, true, false, false, false}, L"шаблон.h"};
+const sample_t s8 = {{true, false, false, false, true, true, false, false}, L""};
 const std::array<const sample_t, 8> samples{s1, s2, s3, s4, s5, s6, s7, s8};
 
 const std::array<std::wstring, 8> wildcards = {
+	L"-",
 	L"wi?dcard.?pp",
 	L"*.h",
 	L"*.cpp",
 	L"*",
 	L"",
 	L"ワ?ルドカ*.h",
-	L"w*card.*",
-	L"-"};
+	L"w*card.*"};
 
 std::wstring fromBool(bool value)
 {
@@ -79,7 +79,7 @@ bool test(int answer, std::wstring pattern)
 		if (result != sample.answer[answer])
 		{
 			std::wcout << errorMessage(sample.answer[answer], result) << std::endl;
-			return pattern == L"-";
+			return false;
 		}
 	}
 	std::wcout << L"OK" << std::endl;
@@ -93,9 +93,8 @@ int main()
 	wildcard::Wildcard w(L"");
 	w.match(L"");
 
-	for (size_t i = 0; i < wildcards.size(); i++)
-		if (!test(i, wildcards.at(i)))
-			return 1;
-
-	return 0;
+	int i = wildcards.size() - 1;
+	while (test(i, wildcards.at(i)))
+		i--;
+	return i;
 }
