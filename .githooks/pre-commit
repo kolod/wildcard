@@ -1,0 +1,15 @@
+#!/bin/bash
+
+# Travis CLI must be installed
+
+echo "Check Travis CI"
+travis=$(travis lint)
+
+if [ "$travis" = "valid" ]; then
+	echo "valid :)"
+	exit 0
+fi
+
+echo "Error!"
+echo "$travis"
+exit 1
