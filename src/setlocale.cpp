@@ -26,11 +26,11 @@
 
 // https://stackoverflow.com/questions/22950412/c-cant-get-wcout-to-print-unicode-and-leave-cout-working
 
-
 #include "setlocale.h"
 
 // Does magic so that wcout can work.
-void init_locale(void) {
+void init_locale(void)
+{
 #if MS_STDLIB_BUGS
 	// Windows needs a little non-standard magic.
 	constexpr char cp_utf16le[] = ".1200"; // UTF-16 little-endian locale.
@@ -41,7 +41,7 @@ void init_locale(void) {
 	constexpr char locale_name[] = "";
 	setlocale(LC_ALL, locale_name);
 	std::locale::global(std::locale(locale_name));
-        std::wcin.imbue(std::locale());
+	std::wcin.imbue(std::locale());
 	std::wcout.imbue(std::locale());
 #endif
 }

@@ -29,38 +29,50 @@
 #include "../src/wildcard.h"
 #include "../src/setlocale.h"
 
-typedef struct {
+typedef struct
+{
 	const std::array<bool, 7> answer;
 	const std::wstring text;
 } sample_t;
 
-const sample_t s1 = { {true, false, true, true, false, false, true}, L"wildcard.cpp"};
-const sample_t s2 = { {false, true, false, true, false, false, true}, L"wildcard.h"};
-const sample_t s3 = { {true, false, false, true, false, false, true}, L"wildcard.hpp"};
-const sample_t s4 = { {false, false, true, true, false, false, false}, L"ワイルドカード.cpp"};
-const sample_t s5 = { {false, true, false, true, false, true, false}, L"ワイルドカード.h"};
-const sample_t s6 = { {false, false, true, true, false, false, false}, L"шаблон.cpp"};
-const sample_t s7 = { {false, true, false, true, false, false, false}, L"шаблон.h"};
-const sample_t s8 = { {false, false, false, true, true, false, false}, L""};
+const sample_t s1 = {{true, false, true, true, false, false, true}, L"wildcard.cpp"};
+const sample_t s2 = {{false, true, false, true, false, false, true}, L"wildcard.h"};
+const sample_t s3 = {{true, false, false, true, false, false, true}, L"wildcard.hpp"};
+const sample_t s4 = {{false, false, true, true, false, false, false}, L"ワイルドカード.cpp"};
+const sample_t s5 = {{false, true, false, true, false, true, false}, L"ワイルドカード.h"};
+const sample_t s6 = {{false, false, true, true, false, false, false}, L"шаблон.cpp"};
+const sample_t s7 = {{false, true, false, true, false, false, false}, L"шаблон.h"};
+const sample_t s8 = {{false, false, false, true, true, false, false}, L""};
+const std::array<const sample_t, 8> samples{s1, s2, s3, s4, s5, s6, s7, s8};
 
-const std::array<const sample_t, 8> samples {s1, s2, s3, s4, s5, s6, s7, s8};
+const std::array<std::wstring, 7> wildcards = {
+	L"wi?dcard.?pp",
+	L"*.h",
+	L"*.cpp",
+	L"*",
+	L"",
+	L"ワ?ルドカ*.h",
+	L"w*card.*"};
 
-std::wstring fromBool(bool value) {
+std::wstring fromBool(bool value)
+{
 	return value ? L"'true'" : L"'false'";
 }
 
-bool test(int answer, std::wstring pattern) {
+bool test(int answer, std::wstring pattern)
+{
 	wildcard::Wildcard w(pattern);
 
 	std::wcout << L"Test pattern: '" << pattern << L"'" << std::endl;
-
-	for (auto sample : samples) {
+	for (auto sample : samples)
+	{
 		std::wcout << L"Test sample: '" << sample.text << L"'" << std::endl;
 		bool result = w.match(sample.text);
-		if (result != sample.answer[answer]) {
+		if (result != sample.answer[answer])
+		{
 			std::wcout
 				<< L"Error: must be " << fromBool(sample.answer[answer])
-				<< L" but return " << fromBool(result )	<< std::endl;
+				<< L" but return " << fromBool(result) << std::endl;
 			return false;
 		}
 	}
@@ -68,19 +80,16 @@ bool test(int answer, std::wstring pattern) {
 	return true;
 }
 
-int main() {
+int main()
+{
 	init_locale();
 
 	wildcard::Wildcard w(L"");
 	w.match(L"");
 
-	return (
-		test(0, L"wi?dcard.?pp") &&
-		test(1, L"*.h") &&
-		test(2, L"*.cpp") &&
-		test(3, L"*") &&
-		test(4, L"") &&
-		test(5, L"ワ?ルドカ*.h") &&
-		test(6, L"w*card.*")
-	) ? 0 : 1;
+	for (size_t i = 0; i < wildcards.size(); i++)
+		if (!test(i, wildcards.at(i)))
+			return 1;
+
+	return 0;
 }

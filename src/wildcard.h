@@ -30,37 +30,46 @@
 #include <vector>
 #include <iostream>
 
-namespace wildcard {
+namespace wildcard
+{
 
-struct transition_t {
-	wchar_t symbol;
-	size_t state;
-};
+	struct transition_t
+	{
+		wchar_t symbol;
+		size_t state;
+	};
 
-struct state_t {
-	transition_t transition[2];
-	bool isSecondActive;
-};
+	struct state_t
+	{
+		transition_t transition[2];
+		bool isSecondActive;
+	};
 
-enum class result {ok, failed, finished};
+	enum class result
+	{
+		ok,
+		failed,
+		finished
+	};
 
-class Wildcard {
+	class Wildcard
+	{
 
-public:
-	explicit Wildcard(const std::wstring &pattern);
-	bool match(const std::wstring &word);
+	public:
+		explicit Wildcard(const std::wstring &pattern);
+		bool match(const std::wstring &word);
 
-private:
-	std::vector<size_t> mCurrentStates;
-	std::vector<state_t> mStates;
+	private:
+		std::vector<size_t> mCurrentStates;
+		std::vector<state_t> mStates;
 
-	void reset();
-	result addSymbol(wchar_t symbol);
-	bool checkAndAdd(std::vector<size_t> &states, const transition_t &transition, wchar_t symbol);
+		void reset();
+		result addSymbol(wchar_t symbol);
+		bool checkAndAdd(std::vector<size_t> &states, const transition_t &transition, wchar_t symbol);
 
 #ifdef WILDCARD_DEBUG
-	void print();
+		void print();
 #endif
-};
+	};
 
 } // namespace

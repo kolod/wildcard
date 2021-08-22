@@ -25,45 +25,23 @@
 ##================================================================================
 
 
-cmake_minimum_required(VERSION 3.12)
+set(SOURCES
+    wildcard.h
+    wildcard.cpp
+    setlocale.h
+    setlocale.cpp
+)
 
-project(wildcard VERSION 0.1 LANGUAGES CXX)
+add_library(wildcard ${SOURCES})
 
-enable_testing()
+# Setting this to the library only avoids errors in 3rd party dependencies which are compile with e.g. -Werror
+if(NOT MSVC)
+    target_compile_options(wildcard PUBLIC -Wall -pedantic)
+endif(NOT MSVC)
 
-option(CODE_COVERAGE "Enable coverage reporting" ON)
-option (BUILD_TESTING "Build the testing tree." ON)
-option(WILDCARD_DEBUG "Enable debug output" OFF)
-
-# Use C++11
-set(CMAKE_CXX_STANDARD 11)
-# Require (at least) it
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
-# Don't use e.g. GNU extension (like -std=gnu++11) for portability
-set(CMAKE_CXX_EXTENSIONS OFF)
-
-# Code Coverage Configuration
-add_library(coverage_config INTERFACE)
-
-if(CODE_COVERAGE AND CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang")
-  # Add required flags (GCC & LLVM/Clang)
-  target_compile_options(coverage_config INTERFACE
-    -O0        # no optimization
-    -g         # generate debug info
-    --coverage # sets all required flags
-  )
-  if(CMAKE_VERSION VERSION_GREATER_EQUAL 3.13)
-    target_link_options(coverage_config INTERFACE --coverage)
-  else()
-    target_link_libraries(coverage_config INTERFACE --coverage)
-  endif()
-endif(CODE_COVERAGE AND CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang")
-
-add_subdirectory(src)
-
-# Only build tests if we are the top-level project
-# Allows this to be used by super projects with `add_subdirectory`
-if (BUILD_TESTING AND (PROJECT_SOURCE_DIR STREQUAL CMAKE_SOURCE_DIR))
-  enable_testing()
-  add_subdirectory(tests)
+if(WILDCARD_DEBUG)
+    target_compile_definitions(wildcard PUBLIC WILDCARD_DEBUG)
 endif()
+
+# Include code-coverage settings:
+target_link_libraries(wildcard PUBLIC coverage_config)
