@@ -44,7 +44,7 @@ const sample_t s4 = {{false, false, true, true, false, false, false, false}, L"�
 const sample_t s5 = {{false, true, false, true, false, true, false, false}, L"ワイルドカード.h"};
 const sample_t s6 = {{false, false, true, true, false, false, false, false}, L"шаблон.cpp"};
 const sample_t s7 = {{false, true, false, true, false, false, false, false}, L"шаблон.h"};
-const sample_t s8 = {{false, false, false, true, true, false, false, false}, L""};
+const sample_t s8 = {{false, false, false, true, true, false, false, true}, L""};
 const std::array<const sample_t, 8> samples{s1, s2, s3, s4, s5, s6, s7, s8};
 
 const std::array<std::wstring, 8> wildcards = {
