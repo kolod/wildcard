@@ -35,14 +35,19 @@ namespace wildcard
 
 	struct transition_t
 	{
-		wchar_t symbol;
+		union
+		{
+			wchar_t wSymbol;
+			char    cSymbol;
+		};
 		size_t state;
 	};
 
 	struct state_t
 	{
 		transition_t transition[2];
-		bool isSecondActive;
+		bool         isSecondActive;
+		bool         isChar;
 	};
 
 	enum class result
@@ -57,7 +62,9 @@ namespace wildcard
 
 	public:
 		explicit Wildcard(const std::wstring &pattern);
+		explicit Wildcard(const char         *pPattern);
 		bool match(const std::wstring &word);
+		bool match(const char         *pWord);
 
 	private:
 		std::vector<size_t> mCurrentStates;
@@ -65,7 +72,9 @@ namespace wildcard
 
 		void reset();
 		result addSymbol(wchar_t symbol);
+		result addSymbol(char    symbol);
 		bool checkAndAdd(std::vector<size_t> &states, const transition_t &transition, wchar_t symbol);
+		bool checkAndAdd(std::vector<size_t> &states, const transition_t &transition, char    symbol);
 
 #ifdef WILDCARD_DEBUG
 		void print();
