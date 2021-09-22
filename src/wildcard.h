@@ -30,6 +30,14 @@
 #include <vector>
 #include <iostream>
 
+#ifndef WILDCARD_ANY
+#define WILDCARD_ANY L'*'
+#endif
+
+#ifndef WILDCARD_SINGLE
+#define WILDCARD_SINGLE L'?'
+#endif
+
 namespace wildcard
 {
 

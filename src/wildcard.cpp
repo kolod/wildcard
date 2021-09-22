@@ -35,7 +35,7 @@ namespace wildcard
 		{
 			state_t state;
 
-			if (pattern[i] != L'*')
+			if (pattern[i] != WILDCARD_ANY)
 			{
 				state.isSecondActive = false;
 			}
@@ -43,7 +43,7 @@ namespace wildcard
 			{
 				i++;
 				state.isSecondActive = true;
-				state.transition[1].symbol = L'?';
+				state.transition[1].symbol = WILDCARD_SINGLE;
 				state.transition[1].state = mStates.size();
 			}
 
@@ -66,7 +66,7 @@ namespace wildcard
 	bool Wildcard::checkAndAdd(std::vector<size_t> &states, const transition_t &transition, wchar_t symbol)
 	{
 		bool finished = false;
-		if ((transition.symbol == symbol) || (transition.symbol == L'?'))
+		if ((transition.symbol == symbol) || (transition.symbol == WILDCARD_SINGLE))
 		{
 			states.push_back(transition.state);
 			if (transition.state == mStates.size())
